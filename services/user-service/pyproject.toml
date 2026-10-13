@@ -6,15 +6,11 @@ readme = "README.md"
 authors = [
     { name = "Vedant Shinde", email = "vedantve@gmail.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.143.0",
+    "grpcio>=1.84.0",
+    "grpcio-tools>=1.84.0",
+    "psycopg[binary]>=3.3.6",
     "sqlmodel>=0.0.48",
 ]
-
-[project.scripts]
-user-service = "user_service:main"
-
-[build-system]
-requires = ["uv_build>=0.13.0,<0.14.0"]
-build-backend = "uv_build"
