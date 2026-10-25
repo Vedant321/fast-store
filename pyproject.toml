@@ -7,7 +7,10 @@ authors = [
     { name = "Vedant Shinde", email = "vedantve@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fastapi>=0.143.0",
+    "pyjwt>=2.15.1",
+]
 
 [tool.uv.workspace]
 members = [

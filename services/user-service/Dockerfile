@@ -24,6 +24,7 @@ WORKDIR /app
 # Copy the env and the code from the builder
 COPY --from=builder /app /app/
 
+ENV PYTHONPATH="/app/services/user-service:/app"
 
 # Put the virtual env on the path
 ENV PATH="/app/.venv/bin:$PATH"
