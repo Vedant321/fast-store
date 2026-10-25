@@ -8,7 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi>=0.143.0",
+    "fastapi[standard]>=0.143.0",
     "pyjwt>=2.15.1",
 ]
 
@@ -16,4 +16,6 @@ dependencies = [
 members = [
     "services/user-service",
     "services/product-service",
+    "services/order-service",
+    "services/inventory-service",
 ]
