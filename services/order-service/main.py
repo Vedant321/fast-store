@@ -24,9 +24,6 @@ async def lifespan(app: FastAPI):
         
     print("Connected to RabbitMQ!")
 
-    async with rabbitmq_connection.channel() as channel:
-        await channel.declare_queue("order_events", durable= True)
-
     yield
     # Cleanup on shutdown
     await rabbitmq_connection.close()

@@ -9,12 +9,12 @@ import product_pb2_grpc
 from fastapi.middleware.cors import CORSMiddleware
 from auth import hash_password, verify_password, create_access_token
 from shared.jwt_utils import verify_token
-# from opentelemetry import trace
-# from opentelemetry.sdk.resources import Resource
-# from opentelemetry.sdk.trace import TracerProvider
-# from opentelemetry.sdk.trace.export import BatchSpanProcessor
-# from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-# from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry import trace
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,16 +24,16 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 # 1. Name the service so we can identify it in the background
-# resource = Resource.create({"service.name": "user-service"})
-# provider = TracerProvider(resource=resource)
+resource = Resource.create({"service.name": "user-service"})
+provider = TracerProvider(resource=resource)
 
-# # 2. Tell it where to send the traces (our Jaeger container)
-# processor = BatchSpanProcessor(OTLPSpanExporter(endpoint="http://jaeger:4317", insecure=True))
-# provider.add_span_processor(processor)
-# trace.set_tracer_provider(provider)
+# 2. Tell it where to send the traces (our Jaeger container)
+processor = BatchSpanProcessor(OTLPSpanExporter(endpoint="http://jaeger:4317", insecure=True))
+provider.add_span_processor(processor)
+trace.set_tracer_provider(provider)
 
-# # 3. Auto-instrument the FastAPI app
-# FastAPIInstrumentor.instrument_app(app)
+# 3. Auto-instrument the FastAPI app
+FastAPIInstrumentor.instrument_app(app)
 
 app.add_middleware(
     CORSMiddleware,
